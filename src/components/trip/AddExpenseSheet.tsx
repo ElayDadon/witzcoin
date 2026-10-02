@@ -48,7 +48,7 @@ export default function AddExpenseSheet({ open, onClose, data, onSaved, editing 
       setCat(editing.category);
       setPayer(editing.payer_id);
       setParticipants((editing.expense_shares ?? []).map((s) => s.user_id));
-      const mode = editing.split_mode === 'exact' ? 'exact' : editing.split_mode === 'percent' ? 'percent' : 'equal';
+      const mode = (editing.split_mode as string) === 'exact' ? 'exact' : (editing.split_mode as string) === 'percent' ? 'percent' : 'equal';
       setSplitMode(mode);
       const totalBase = Number(editing.amount_base) || 0;
       setEntered(Object.fromEntries((editing.expense_shares ?? []).map((sh) => [
