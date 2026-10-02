@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f3f5f5;
+  --surface: #ffffff;
+  --surface-2: #eef1f1;
+  --line: #e5eaea;
+  --fg: #0e1a19;
+  --fg-dim: #657b7a;
+  --fg-faint: #93a6a5;
+  --brand: #0e7c71;
+  --brand-soft: #d8f2ee;
+  --accent: #c87a16;
+  --pos: #0a7d55;
+  --neg: #bf3b2e;
+  --shadow: 0 1px 2px rgba(12, 32, 30, .05), 0 8px 20px -14px rgba(12, 32, 30, .28);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #080f0f;
+    --surface: #131e1d;
+    --surface-2: #1c2928;
+    --line: #253433;
+    --fg: #e9eeed;
+    --fg-dim: #8ea4a2;
+    --fg-faint: #6a807e;
+    --brand: #35d6c2;
+    --brand-soft: #0d3a35;
+    --accent: #efb33a;
+    --pos: #35d399;
+    --neg: #f87171;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #080f0f;
+  --surface: #131e1d;
+  --surface-2: #1c2928;
+  --line: #253433;
+  --fg: #e9eeed;
+  --fg-dim: #8ea4a2;
+  --fg-faint: #6a807e;
+  --brand: #35d6c2;
+  --brand-soft: #0d3a35;
+  --accent: #efb33a;
+  --pos: #35d399;
+  --neg: #f87171;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  color-scheme: dark;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+body {
+  /* Respect the iPhone notch and home indicator once installed to the home screen. */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Figures stay left-to-right and line up in columns, inside Hebrew sentences. */
+.num { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; display: inline-block; }
+
+input, textarea, select, button { font-family: inherit; }
+/* iOS zooms the page when a focused input is under 16px. */
+input, textarea, select { font-size: 16px; }
+
+::-webkit-scrollbar { width: 0; height: 0; }
+.no-scrollbar { scrollbar-width: none; }
+
+@layer components {
+  .panel {
+    background: var(--surface);
+    border-radius: 1.125rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .ptitle {
+    @apply text-xs font-bold tracking-wide;
+    color: var(--fg-faint);
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-[13px] px-4 py-3 text-[14.5px] font-bold transition active:scale-[.975] disabled:opacity-40 disabled:active:scale-100;
+  }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-ghost { background: var(--surface-2); color: var(--fg); }
+  .field {
+    @apply w-full rounded-[13px] px-3.5 py-3 outline-none transition;
+    background: var(--surface-2);
+    border: 1px solid transparent;
+    color: var(--fg);
+  }
+  .field:focus { border-color: var(--brand); background: var(--surface); }
+  .label { @apply mb-1.5 block text-[12.5px] font-bold; color: var(--fg-dim); }
+  .chip {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-semibold transition;
+    background: var(--surface-2);
+    color: var(--fg-dim);
+  }
+  .chip-on { background: var(--brand); color: #fff; }
+  .track { @apply h-2 overflow-hidden rounded-full; background: var(--surface-2); }
+  .track > i { @apply block h-full rounded-full; transition: width .5s cubic-bezier(.32,.72,0,1); }
+  .kv { @apply flex items-baseline justify-between gap-3.5 px-[18px] py-3.5; }
+  .kv + .kv { border-top: 1px solid var(--line); }
+  .divide-line > * + * { border-top: 1px solid var(--line); }
+}
+
+/* Native accordion: everything that isn't an immediate answer folds away. */
+details.acc > summary { list-style: none; cursor: pointer; }
+details.acc > summary::-webkit-details-marker { display: none; }
+.chev { transition: transform .22s; }
+details:not([open]) .chev { transform: rotate(90deg); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .2s ease-out both; }
+
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+.sheet-up { animation: sheet-up .26s cubic-bezier(.32,.72,0,1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .sheet-up { animation: none; }
+}
