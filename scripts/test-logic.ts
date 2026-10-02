@@ -1,9 +1,8 @@
-import { computeBalances, simplifyDebts, splitEvenly, allocate, resolveSplit, personalByCategory } from '../src/lib/balances.ts';
-import { normalizePhone, formatPhone, phoneToEmail } from '../src/lib/auth.ts';
-import { COUNTRIES, COUNTRY_BY_CODE } from '../src/lib/countries.ts';
-import { money, moneyRound, moneyShort } from '../src/lib/format.ts';
-import { CURRENCIES, CURRENCY_BY_CODE, currencyDigits, searchCurrencies, orderedCurrencies } from '../src/lib/currencies.ts';
-
+import { computeBalances, simplifyDebts, splitEvenly, allocate, resolveSplit, personalByCategory } from '../src/lib/balances';
+import { normalizePhone, formatPhone, phoneToEmail } from '../src/lib/auth';
+import { COUNTRIES, COUNTRY_BY_CODE } from '../src/lib/countries';
+import { money, moneyRound, moneyShort } from '../src/lib/format';
+import { CURRENCIES, CURRENCY_BY_CODE, currencyDigits, searchCurrencies, orderedCurrencies } from '../src/lib/currencies';
 let pass = 0, fail = 0;
 const eq = (name: string, a: unknown, b: unknown) => {
   const ok = JSON.stringify(a) === JSON.stringify(b);
